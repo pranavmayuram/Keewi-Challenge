@@ -1,26 +1,60 @@
 <head>
     <title>Pranav Keewi Challenge</title>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- <script src="http://code.highcharts.com/stock/highstock.src.js"></script> -->
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js"></script>
+    <script src="./node_modules/highcharts-ng/dist/highcharts-ng.min.js"></script>
     <script src="./challenge_charter.js"></script>
 </head>
 
 <style>
 body {
-    background-color: #ECEEEE;
+    /*background-color: #ECEEEE;*/
 }
 </style>
 
-<body>
+<body ng-app="keewiChallenge" ng-controller="mainController">
     <br/>
     <div class="container">
         <div class="row" align="center">
             <h3>Keewi Energy Monitor</h3>
-        </div> 
-        <div id="chart1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+        <highchart id="chart1" style="min-width: 310px; height: 375px; margin: 0 auto" config="chart1Config"></highchart>
+        <form>
+            <div class="form-group" align="center">
+                <span class="col-md-4"></span>
+                <div class="col-md-4">
+                    <div class="row">
+                        <label for="inputAddr">Address</label>
+                        <input type="text" class="form-control" id="addr" placeholder="450 Serra Mall, Stanford, CA 94305" ng-model="priceAddr" required></input>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <label for="inputSector">Sector</label>
+                        <select ng-model="priceSector" required>
+                            <option value="Residential">Residential</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Industrial">Industrial</option>
+                        </select>
+                    </div>
+                    <br/>
+                    <p>Input the address, and sector for your building to get per-device cost analysis.</p>
+                    <div class="row">
+                        <button class="btn btn-primary" ng-click="getPriceData()">Get Price Data</button>
+                    </div>
+                </div>
+                <span class="col-md-4"></span>
+            </div>
+        </form>
+        <br/>
+        <br/>
+        <highchart ng-show="priceDataReceived" id="chart2" style="min-width: 310px; height: 375px; margin: 0 auto" config="chart2Config"></highchart>
     </div>
+    <br/>
+    <br/>
 </body>
