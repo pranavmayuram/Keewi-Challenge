@@ -71,7 +71,8 @@ keewiChallenge.controller('mainController', function($scope, $window, $http) {
                 formatter: function () {
                     return this.value % 0.000;
                 }
-            }
+            },
+            min: 0
         },
         series: devSeries,
         // useHighStocks: true
@@ -120,6 +121,7 @@ keewiChallenge.controller('mainController', function($scope, $window, $http) {
                 console.log($scope.chart2Config);
                 var avgSectorPricing = result.data.outputs[$scope.priceSector.toLowerCase()];
                 $scope.chart2Config["subtitle"]["text"] = "Keewi, NREL Utility Rates, OpenEI Utility Rates<br/>Average $/kWh: " + avgSectorPricing;
+                $scope.chart2Config["yAxis"]["max"] = 0.14;
                 console.log("avgSectorPricing: " + avgSectorPricing);
 
                 var devSeries2 = [];
